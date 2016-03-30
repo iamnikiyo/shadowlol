@@ -10,3 +10,13 @@
 
 ### Is the web site running at the moment?
   * No, this web is currently under development
+
+### Other information
+ * The web is using frameworks like:
+  * Django
+  * Materialize CSS
+  * Cassiopeia Riot Api
+ * Is writting using:
+  * Python
+  * Html5
+  * CSS3
