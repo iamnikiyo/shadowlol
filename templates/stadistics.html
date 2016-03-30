@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %} Stadistics {% endblock %}
+{% block content %} 
+	<ul class="collection">
+		{% for item in lista %}
+			{% if item.level == 5 %}
+				<li class="collection-item">
+					{{ item.champion }} {{ item.highest_grade }}
+				</li>
+			{% endif %}
+			
+		{% endfor %}
+{% endblock %}

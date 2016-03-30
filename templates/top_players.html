@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}  Top Players  {% endblock %}
+
+{% block content %}
+{% load staticfiles %}
+	
+	<div class="container">
+		<div class="row">
+			<div class="col s12 m6 offset-m3">
+				<div class="row">
+				 <div class="col s6 offset-s3">
+					 <ul class="pagination center-align">			 	   
+					    <li class="waves-effect"><a href="?page=1">1</a></li>
+					    <li class="waves-effect"><a href="?page=2">2</a></li>
+					    <li class="waves-effect"><a href="?page=3">3</a></li>
+					    <li class="waves-effect"><a href="?page=4">4</a></li>
+					    <li class="waves-effect"><a href="?page=5">5</a></li>
+				  	</ul> 
+			  		</div>
+			  		</div>
+				 <ul class="collection"> 
+					{% for item in listTopPlayers %}
+						<li class="collection-item" > 
+							<div class="row">
+								<div class="col s12 m8 offset-m2">
+								<img class="circle responsive-img" style="width:64px;height:64px;vertical-align: middle;" src="{% static 'img/' %}{{ item.summoner.profile_icon_id}}.png" /> <span style="">{{ item }}</span>
+								</div>
+							</div>
+						</li>
+						
+					{% endfor %}
+				 </ul> 
+
+ 		</div>
+	 </div>
+	 </div>
+{% endblock %}

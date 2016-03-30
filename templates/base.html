@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<html>
+	<head>
+		<title> {% block title %}{% endblock %}</title>
+
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"> 
+		<style>
+					 body {
+					    display: flex;
+					    min-height: 100vh;
+					    flex-direction: column;
+						  }
+
+					  main {
+			  			  flex: 1 0 auto;
+			 			 }
+
+		 			 {% block style %}
+		 			 {% endblock %}
+		</style>
+		<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="crossorigin="anonymous"></script>
+		<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+          
+	</head>
+	<body>
+			<header>
+			  <div class="navbar-fixed ">
+			    <nav>
+			      <div class="nav-wrapper grey darken-4 z-depth-2">
+			       <!-- <a href="#!" class="brand-logo center" >Shadow LoL</a> -->
+			        <ul class="left hide-on-med-and-down">
+			          <li><a href="/home">Home</a></li>
+			          <li><a href="/stadistics">Statistics</a></li>
+			          <li><a href="/topPlayers">Top Players</a></li>
+			        </ul>
+			      </div>
+			    </nav>
+			  </div>
+			</header>
+			<main>
+				{% block content %} 
+
+				{% endblock %}
+			</main>
+	</body>
+ <footer class="page-footer grey darken-4">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text"> Shadow LoL</h5>
+                <p class="grey-text text-lighten-4">All information using in this page has been collected from the Riot Api.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="http://GitHub.com/bynikiyo">GitHub</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">bynikiyodesigns@gmail.com</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 Copyright bynikiyoDesigns
+            </div>
+          </div>
+        </footer>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'materialize/bin/materialize.js' %}"></script>
+</html>
