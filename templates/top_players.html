@@ -4,23 +4,35 @@
 
 {% block content %}
 {% load staticfiles %}
-	
 	<div class="container">
+		<div class="row" style="margin-bottom:0px;">
+	          <form class="col m6 offset-m3" method="POST" name="form" action="/topPlayers/" > {% csrf_token %}
+	            <div class="row" style="margin-bottom:0px;">
+	              <div class="input-field col m6 offset-m3">
+	          		<div class="select-wrapper">
+					    <select class="initialized" id="selectForm" onchange="send()">
+					      <option value="" disabled>Choose your Region</option>
+					      <option value="br">BR</option>
+					      <option value="eune">EUNE</option>
+					      <option value="euw">EUW</option>
+					      <option value="kr">KR</option>
+					      <option value="lan">LAN</option>
+					      <option value="las">LAS</option>
+					      <option value="na">NA</option>
+					      <option value="oce">OCE</option>
+					      <option value="ru">RU</option>
+					      <option value="tr">TR</option>
+					    </select>
+					</div>
+					</div>
+					</div>
+
+	      </form>
+		  </div>
 		<div class="row">
 			<div class="col s12 m6 offset-m3">
-				<div class="row">
-				 <div class="col s6 offset-s3">
-					 <ul class="pagination center-align">			 	   
-					    <li class="waves-effect"><a href="?page=1">1</a></li>
-					    <li class="waves-effect"><a href="?page=2">2</a></li>
-					    <li class="waves-effect"><a href="?page=3">3</a></li>
-					    <li class="waves-effect"><a href="?page=4">4</a></li>
-					    <li class="waves-effect"><a href="?page=5">5</a></li>
-				  	</ul> 
-			  		</div>
-			  		</div>
 				 <ul class="collection"> 
-					{% for item in listTopPlayers %}
+					 {% for item in listTopPlayers %}
 						<li class="collection-item" > 
 							<div class="row">
 								<div class="col s12 m8 offset-m2">
@@ -31,8 +43,36 @@
 						
 					{% endfor %}
 				 </ul> 
-
+				<div class="row">
+				 <div class="col s6 offset-s3">
+						 <ul class="pagination center-align">			 	   
+						    <li class="waves-effect"><a href="?page=1">1</a></li>
+						    <li class="waves-effect"><a href="?page=2">2</a></li>
+						    <li class="waves-effect"><a href="?page=3">3</a></li>
+						    <li class="waves-effect"><a href="?page=4">4</a></li>
+						    <li class="waves-effect"><a href="?page=5">5</a></li>
+					  	</ul> 
+			  		</div>
+		  		</div>
  		</div>
 	 </div>
 	 </div>
+{% endblock %}
+
+{% block js %}
+
+
+	$(document).ready(function() {
+   		 $('select').material_select();
+	}); 
+
+	function send() {
+		var reg = document.getElementById("selectForm").value
+		var path = window.location.pathname
+		var url = path.substring(0,12) + reg;
+		window.location.replace(url);
+		
+	}
+
+
 {% endblock %}

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -126,3 +127,7 @@ STATIC_ROOT ='staticfiles'
 STATICFILES_DIRS = (
         os.path.join(BASE_DIR,'static/'),
     )
+
+
+# My riot Api key.
+RIOT_KEY = "deef6b4f-d2b2-49a1-8aaf-9128a2fc54e3"

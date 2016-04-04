@@ -25,6 +25,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',inicio),
     url(r'^stadistics/$',stadistics),
-    url(r'^topPlayers/$',top_players),
+    url(r'^topPlayers/(?P<region>[a-z]*)',top_players),
     url(r'^home/$',inicio),
 ]

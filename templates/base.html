@@ -3,12 +3,14 @@
 	<head>
 		<title> {% block title %}{% endblock %}</title>
 
-		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"> 
+		  <link rel="stylesheet" href="http://materializecss.com/bin/materialize.css"> 
+
 		<style>
 					 body {
 					    display: flex;
 					    min-height: 100vh;
 					    flex-direction: column;
+					    color:black;
 						  }
 
 					  main {
@@ -18,21 +20,32 @@
 		 			 {% block style %}
 		 			 {% endblock %}
 		</style>
-		<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="crossorigin="anonymous"></script>
+		<script src="//code.jquery.com/jquery-2.1.2.min.js"></script>
+		<script>
+		{% block js %}
+		{% endblock %}
+		</script>
+		<!--<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script> -->
+
+		
+		<!--<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>-->
+		<script src="http://materializecss.com/bin/materialize.js"></script>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-  		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  		
+		
           
 	</head>
-	<body>
+	<body class="N/A transparent">
 			<header>
 			  <div class="navbar-fixed ">
 			    <nav>
-			      <div class="nav-wrapper grey darken-4 z-depth-2">
+			      <div class="nav-wrapper  black z-depth-2">
 			       <!-- <a href="#!" class="brand-logo center" >Shadow LoL</a> -->
 			        <ul class="left hide-on-med-and-down">
 			          <li><a href="/home">Home</a></li>
 			          <li><a href="/stadistics">Statistics</a></li>
-			          <li><a href="/topPlayers">Top Players</a></li>
+			          <li><a href="/topPlayers/euw">Top Players</a></li>
 			        </ul>
 			      </div>
 			    </nav>
@@ -44,7 +57,7 @@
 				{% endblock %}
 			</main>
 	</body>
- <footer class="page-footer grey darken-4">
+ <footer class="page-footer black" id="myFooter">
           <div class="container">
             <div class="row">
               <div class="col l6 s12">
@@ -60,12 +73,12 @@
               </div>
             </div>
           </div>
-          <div class="footer-copyright">
+          <div class="footer-copyright black">
             <div class="container">
             © 2016 Copyright bynikiyoDesigns
             </div>
           </div>
         </footer>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="{% static 'materialize/bin/materialize.js' %}"></script>
+	<!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'materialize/bin/materialize.js' %}"></script>-->
 </html>

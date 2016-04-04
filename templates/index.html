@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %} Home {% endblock %}
+{% block style %}
+		main {
+			background-image: url(" {% static 'img/' %}{{ bg }}");
+		}
+		#myFooter {
+			margin-top: 0px !important;
+		}
+
+{% endblock %}
+{% block content %}
+	
+	<div class="row valign">
+		<div class="col s5 offset-s1">
+			<form>
+				 <div class="input-field col s5 offset-s1">
+		          <input placeholder="Summoner Name" id="summoner_name" type="text" class="validate">
+		          <label for="summonerName">Summoner Name</label>
+		        </div>
+	        </form>
+        </div>
+    </div>
+{% endblock %}
