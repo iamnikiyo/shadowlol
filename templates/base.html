@@ -10,13 +10,15 @@
 					    display: flex;
 					    min-height: 100vh;
 					    flex-direction: column;
-					    color:black;
 						  }
 
 					  main {
 			  			  flex: 1 0 auto;
 			 			 }
+		 			  .myBlack {
+	 			  		background-color:#0E0E0E !important;
 
+		 			  }
 		 			 {% block style %}
 		 			 {% endblock %}
 		</style>
@@ -36,11 +38,11 @@
 		
           
 	</head>
-	<body class="N/A transparent">
+	<body class="transparent">
 			<header>
 			  <div class="navbar-fixed ">
 			    <nav>
-			      <div class="nav-wrapper  black z-depth-2">
+			      <div class="nav-wrapper myBlack z-depth-2">
 			       <!-- <a href="#!" class="brand-logo center" >Shadow LoL</a> -->
 			        <ul class="left hide-on-med-and-down">
 			          <li><a href="/home">Home</a></li>
@@ -57,7 +59,7 @@
 				{% endblock %}
 			</main>
 	</body>
- <footer class="page-footer black" id="myFooter">
+ <footer class="page-footer myBlack" id="myFooter">
           <div class="container">
             <div class="row">
               <div class="col l6 s12">

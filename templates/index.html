@@ -4,22 +4,61 @@
 {% block style %}
 		main {
 			background-image: url(" {% static 'img/' %}{{ bg }}");
+			background-repeat:no-repeat;
+			background-position:center center;
+			position:relative;
+
 		}
 		#myFooter {
 			margin-top: 0px !important;
+		}
+		#content {
+			position:absolute;
+			width:100%;
+			height:100%;
+		}
+		.divSearch{
+			background-color: rgba(0, 0, 0, 0.55) !important;
+		}
+		.yolo{
+
+			width:500px;
+			margin:0 auto;
+			height:150px;
+			padding:2%;
+			background-color:rgba(0, 0, 0, 0.5);
+			
+		}
+		.myBtn{
+			margin-top:5px;
+			width:100%;
+
 		}
 
 {% endblock %}
 {% block content %}
 	
-	<div class="row valign">
-		<div class="col s5 offset-s1">
-			<form>
-				 <div class="input-field col s5 offset-s1">
-		          <input placeholder="Summoner Name" id="summoner_name" type="text" class="validate">
-		          <label for="summonerName">Summoner Name</label>
-		        </div>
-	        </form>
+	<div id="content" class="row valign-wrapper">
+		<div class="col s12">
+			<div class="yolo z-depth-2">
+				<form method="post">
+					 <div class="input-field col s8">
+					 	 <input placeholder="Insert name" id="name" type="text" class="validate">
+				 	 </div>
+				 	 <div class="input-field col s4 ">
+	 	 				<a class="waves-effect waves-light red darken-1 btn myBtn" onclick="sendChamp()" value="champ">Champ</a>
+	 	 				<a class="waves-effect waves-light btn red darken-1 myBtn" onclick="sendSumm()" value="summoner">Summoner</a>
+
+	 	 			</div>
+	        	</form>
+	        </div>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+
+	function sendChamp(){
+	
+	}
 {% endblock %}
