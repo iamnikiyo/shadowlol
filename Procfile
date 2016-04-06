@@ -1,0 +1,1 @@
+web: gunicorn shadowlol.wsgi --log-file -

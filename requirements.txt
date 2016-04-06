@@ -1,0 +1,4 @@
+cassiopeia==0.1.1
+Django==1.9.5
+django-materialize-css==0.0.1
+SQLAlchemy==1.0.12
