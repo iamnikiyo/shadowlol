@@ -7,6 +7,7 @@
 			background-repeat:no-repeat;
 			background-position:center center;
 			position:relative;
+			background-position-size:cover;
 
 		}
 		#myFooter {
@@ -20,34 +21,86 @@
 		.divSearch{
 			background-color: rgba(0, 0, 0, 0.55) !important;
 		}
-		.yolo{
-
-			width:500px;
-			margin:0 auto;
-			height:150px;
-			padding:2%;
-			background-color:rgba(0, 0, 0, 0.5);
-			
-		}
+		
 		.myBtn{
 			margin-top:5px;
-			width:100%;
+			text-align:center;
+			
+
+		}
+		.region{
+
+			width:10%;
+			height:100%;
+			margin-right:25px !important;
+		}
+		*{
+			color:white;
+		}
+		.select-dropdown{
+			
+			text-align:center;
 
 		}
 
+	.input-field input[type=text]:focus + label {
+     color: #E53935;
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid #E53935;
+     box-shadow: 0 1px 0 0 #E53935;
+   }
+   /* valid color */
+   .input-field input[type=text].valid {
+     border-bottom: 1px solid #E53935;
+     box-shadow: 0 1px 0 0 #E53935;
+   }
+   /* invalid color */
+   .input-field input[type=text].invalid {
+     border-bottom: 1px solid #E53935;
+     box-shadow: 0 1px 0 0 #E53935;
+   }
+   /* icon prefix focus color */
+   .input-field .prefix.active {
+     color: #E53935;
+  }
+  
+  
+
+{% endblock %}
+{% block navContent %}
+	<div class="right input-field region">
+		<form name="regionForm" method="POST"> {% csrf_token %}
+			<div class="select-wrapper">
+				   <select class="initialized" id="selectForm">
+					      <option value="" selected="selected">Choose your Region</option>
+					      <option value="br">BR</option>
+					      <option value="eune">EUNE</option>
+					      <option value="euw" selected>EUW</option>
+					      <option value="kr">KR</option>
+					      <option value="lan">LAN</option>
+					      <option value="las">LAS</option>
+					      <option value="na">NA</option>
+					      <option value="oce">OCE</option>
+					      <option value="ru">RU</option>
+					      <option value="tr">TR</option>
+					    </select>
+		</form>
+	</div>
 {% endblock %}
 {% block content %}
 	
 	<div id="content" class="row valign-wrapper">
-		<div class="col s12">
-			<div class="yolo z-depth-2">
+		<div class="col s12 m12">
+			<div class="col s10 m4 offset-s1 offset-m4 z-depth-2" style="background-color:rgba(0, 0, 0, 0.53);padding:1%;">
 				<form method="post">
-					 <div class="input-field col s8">
+					 <div class="input-field col s6 m7">
 					 	 <input placeholder="Insert name" id="name" type="text" class="validate">
 				 	 </div>
-				 	 <div class="input-field col s4 ">
-	 	 				<a class="waves-effect waves-light red darken-1 btn myBtn" onclick="sendChamp()" value="champ">Champ</a>
-	 	 				<a class="waves-effect waves-light btn red darken-1 myBtn" onclick="sendSumm()" value="summoner">Summoner</a>
+				 	 <div class="input-field col s6 m5">
+	 	 				<a class="col s12 waves-effect waves-light red darken-1 btn myBtn" onclick="sendChamp()" value="champ">Champ</a>
+	 	 				<a class="col s12 waves-effect waves-light btn red darken-1 myBtn" onclick="sendSumm()" value="summoner">Summoner</a>
 
 	 	 			</div>
 	        	</form>
@@ -58,7 +111,25 @@
 
 {% block js %}
 
+
+	$(document).ready(function() {
+   		 $('select').material_select();
+	}); 
+
 	function sendChamp(){
-	
+		var nameChamp = document.getElementById('name').value
+		var path = window.location.pathname
+		var newUrl = path + "champion/" + nameChamp.toLowerCase();
+		window.location.replace(newUrl);
+		
 	}
+
+	function sendSumm(){
+		var nameSumm = document.getElementById('name').value
+		var region = document.getElementById('selectForm').value
+		var path = window.location.pathname;
+		var newUrl = path.substring(0,1) + region + "/" + nameSumm.toLowerCase();
+		window.location.replace(newUrl);
+	}
+
 {% endblock %}

@@ -3,8 +3,8 @@
 	<head>
 		<title> {% block title %}{% endblock %}</title>
 
-		  <link rel="stylesheet" href="http://materializecss.com/bin/materialize.css"> 
-
+	    <link rel="stylesheet" href="http://materializecss.com/bin/materialize.css"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<style>
 					 body {
 					    display: flex;
@@ -45,10 +45,11 @@
 			      <div class="nav-wrapper myBlack z-depth-2">
 			       <!-- <a href="#!" class="brand-logo center" >Shadow LoL</a> -->
 			        <ul class="left hide-on-med-and-down">
-			          <li><a href="/home">Home</a></li>
+			          <li><a href="/">Home</a></li>
 			          <li><a href="/stadistics">Statistics</a></li>
 			          <li><a href="/topPlayers/euw">Top Players</a></li>
 			        </ul>
+			        {% block navContent %}{% endblock %}
 			      </div>
 			    </nav>
 			  </div>

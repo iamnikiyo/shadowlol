@@ -1,0 +1,62 @@
+	
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %} {{ summoner.name }} {% endblock %}
+
+{% block style %}
+	#generalData{
+		margin-top:15px;
+		background-color:#f5f2f0;
+		padding:0px !important;
+		border: 1px solid rgba(51,51,51,0.12);
+	}
+	main {
+		background-color:#e0e0e0;
+		margin:0px;
+	}
+	#myFooter {
+		margin-top:0px;
+	}
+	#divMedio{
+		border: 1px solid rgba(51,51,51,0.12);
+		margin-top:15px;
+	}
+	.titleDiv{
+		font-weight:bold;
+		text-align:center;
+		padding:5px !important;
+		margin:0px !important;
+		background-color:#EAEAEA;
+		border-bottom: 1px solid rgba(51,51,51,0.12);
+	}
+{% endblock %}
+
+
+{% block content %}
+	<div class="row grey lighten-2" id="contenedor">
+		<div class="col s10 offset-s1 grey lighten-3 z-depth-1" id="divMedio">
+			<div class="row">
+				<div class="col s5 offset-s1 " id="generalData">
+					<div class="col s12 titleDiv">
+						<h7>General Data</h7>
+					</div>
+					
+					<div class="" style="padding:15px">
+						<div class="col s3" style="padding:0px;">
+							<img class="circle responsive-img" style="width:64px;height:64px;" src="{% static 'img/' %}{{ summoner.profile_icon_id}}.png" />
+						</div>
+						<div class="col s9" style="vertical-align:middle;padding:0px;">
+							<div><span>{{ summoner.name }}</span></div>
+							<div><span>Level {{ summoner.level }}</span></div>
+							<div><span>{{elo}}</span></div>
+						</div>
+					</div>
+				</div>
+				<div class="col s5 " style="margin-left:10px;" id="generalData">
+					<h7 class="col s12" style="text-align:center;"><b>Matches W/L Ratio's</b></h7>
+				</div>
+
+				
+			</div>
+	</div>
+{% endblock %}

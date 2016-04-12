@@ -29,13 +29,33 @@ def top_players(request,region):
 	list_pages = pagination(request,summoners,5)
 	return render(request,'top_players.html',{"listTopPlayers" : list_pages })
 
+def summoner_page(request,region,summoner):
+	summonerObject = get_summoner_from_api(region,summoner)
+	leagues = summonerObject.league_entries();
+	elo = 'unDefined'
+	noFind = True
+	i=0
+	for item in leagues:
+		while(noFind):
+			if item.entries[i].summoner_name == summonerObject.name :
+				lp = item.entries[i].league_points
+				entry = item.entries[i].division.value + ' LP ' + str(lp)
+				noFind = False
+			i+=i
+		elo = item.tier.value + ' ' + entry
+	return render(request,'summoner_page.html',{"summoner":summonerObject,"elo":elo })
+
+def get_summoner_from_api(region,summoner):
+	riotapi.set_region(region)
+	riotapi.set_api_key(settings.RIOT_KEY)
+	return riotapi.get_summoner_by_name(summoner)
+
 def get_region(request):
 	if request.method == 'POST':
 		reg= request.POST.get("region")	
 	else:
 		reg= "euw"
 	riotapi.set_region(reg)
-	print ("La region en get_region es {} ".format(reg))
 	riotapi.set_api_key(settings.RIOT_KEY)
 	summoners = riotapi.get_challenger()
 	return summoners

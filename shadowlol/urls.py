@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from shadowlol.views import inicio
 from shadowlol.views import stadistics
-from shadowlol.views import top_players
+from shadowlol.views import top_players,summoner_page
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -26,5 +26,5 @@ urlpatterns = [
     url(r'^$',inicio),
     url(r'^stadistics/$',stadistics),
     url(r'^topPlayers/(?P<region>[a-z]*)',top_players),
-    url(r'^home/$',inicio),
+    url(r'^(?P<region>[a-zA-Z]*)/(?P<summoner>[a-zA-z]*)',summoner_page),
 ]
