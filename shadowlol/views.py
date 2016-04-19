@@ -39,11 +39,20 @@ def summoner_page(request,region,summoner):
 		while(noFind):
 			if item.entries[i].summoner_name == summonerObject.name :
 				lp = item.entries[i].league_points
-				entry = item.entries[i].division.value + ' LP ' + str(lp)
+				divi = item.entries[i].division.value
+				entry = divi + ' (LP ' + str(lp) + ')'
+				leagueObject = item.entries[i]
 				noFind = False
 			i+=i
 		elo = item.tier.value + ' ' + entry
-	return render(request,'summoner_page.html',{"summoner":summonerObject,"elo":elo })
+		img = get_elo_image(item.tier.value,divi)
+	return render(request,'summoner_page.html',{"summoner":summonerObject,"elo":elo,"ranking":img,"leagues":leagueObject})
+
+
+def get_elo_image(tier,division):
+	rank = tier +"_"+ division + "-min.png"
+	return rank
+	
 
 def get_summoner_from_api(region,summoner):
 	riotapi.set_region(region)
