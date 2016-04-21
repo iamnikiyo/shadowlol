@@ -2,12 +2,8 @@
 <html>
 	<head>
 		<title> {% block title %}{% endblock %}</title>
-<!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
 
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-	<!--    <link rel="stylesheet" href="http://materializecss.com/bin/materialize.css">  -->
+	    <link rel="stylesheet" href="{% static 'materialize/css/materialize.css' %}"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<style>
 					 body {
@@ -32,7 +28,7 @@
 		{% endblock %}
 		</script>
 		
-		<!--<script src="http://materializecss.com/bin/materialize.js"></script>  -->
+		-<script src="{% static 'materialize/js/materialize.js' %}"></script> 
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
   		
 		
