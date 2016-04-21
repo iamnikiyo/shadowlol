@@ -4,3 +4,4 @@ django-materialize-css==0.0.1
 gunicorn==19.4.5
 SQLAlchemy==1.0.12
 virtualenv==15.0.1
+whitenoise==3.0
