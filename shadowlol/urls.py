@@ -27,4 +27,9 @@ urlpatterns = [
     url(r'^stadistics/$',stadistics),
     url(r'^topPlayers/(?P<region>[a-z]*)',top_players),
     url(r'^(?P<region>[a-zA-Z]*)/(?P<summoner>[a-zA-z]*)',summoner_page),
+
 ]
+
+urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    )
