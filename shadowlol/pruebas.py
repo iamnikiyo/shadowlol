@@ -7,5 +7,5 @@ recents = riotapi.get_recent_games(summoner)
 for i in range(5):
 	print("------Partido {}----------".format(i))
 	for participant in recents[i]:
-		print(participant.summoner.name + " y jugó con : " + participant.champion.name)
+		print(participant.champion.image.link[:-4])
 	print("------FIN Partido {}----------".format(i))		

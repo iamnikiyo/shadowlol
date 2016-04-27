@@ -94,14 +94,14 @@
 	<div id="content" class="row valign-wrapper">
 		<div class="col s12 m12">
 			<div class="col s10 m4 offset-s1 offset-m4 z-depth-2" style="background-color:rgba(0, 0, 0, 0.53);padding:1%;">
-				<form method="post">
+				<form method="post" action="" onkeypress="checkSubmit(event)" > {% csrf_token %}
 					 <div class="input-field col s6 m7">
 					 	 <input placeholder="Insert name" id="name" type="text" class="validate">
 				 	 </div>
 				 	 <div class="input-field col s6 m5">
-	 	 				<a class="col s12 waves-effect waves-light red darken-1 btn myBtn" onclick="sendChamp()" value="champ">Champ</a>
-	 	 				<a class="col s12 waves-effect waves-light btn red darken-1 myBtn" onclick="sendSumm()" value="summoner">Summoner</a>
-
+	 	 				<a class="col s12 waves-effect waves-light red darken-1 btn myBtn" id="champ" onclick="sendChamp()" value="champ">Champ</a>
+	 	 				<a class="col s12 waves-effect waves-light btn red darken-1 myBtn" id="summ"  onclick="sendSumm()" value="summoner">Summoner</a>
+ 	 					
 	 	 			</div>
 	        	</form>
 	        </div>
@@ -131,5 +131,18 @@
 		var newUrl = path.substring(0,1) + region + "/" + nameSumm.toLowerCase();
 		window.location.replace(newUrl);
 	}
+
+		$(function() {
+		    $("form input").keypress(function (e) {
+		        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+		            console.log("va");
+		            $('#summ').click();
+
+		            return false;
+		        } else {
+		            return true;
+		        }
+		    });
+		});
 
 {% endblock %}

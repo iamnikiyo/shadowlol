@@ -142,20 +142,24 @@
 				        <div class="col s12 m12" id="divContentTabs">
 				        	<div id="tab-1" class="tab-content current">
 				        		<div class="col s8 m8 divInsideTab">
-				        			<!-- python code-->
-				        			<div class="col s12 m12 divGame green">
-				        				<div class="col s1 m1">				        					
-				        						<p><b>Win</b></p>
-				        						<p>Normal</p>
-				        						<p>38:40</p>
-				        						
-				        				</div>
-				        				<div class="col s2 m2 offset-m1 offset-s1 childGame">
-			        							<img class="circle responsive-img" style="margin-top:5px" src="{% static 'img/' %}{{ summoner.profile_icon_id}}.jpg"/>
-			        							<p><b>ChampName</b></p>
-		        							</div>
-				        			</div>
-				        			
+				        			{% for item in games %}
+				        				{% for participant in item %}
+				        					{% if participant.summoner.name == summoner.name %}
+							        			<div class="col s12 m12 divGame green">
+							        				<div class="col s1 m1">				        					
+							        						<p><b>Win</b></p>
+							        						<p>Normal</p>
+							        						<p>38:40</p>
+							        				</div>
+							        				<div class="col s2 m2 offset-m1 offset-s1 childGame">
+						        							<img class="circle responsive-img" style="margin-top:5px" src="{% static 'img/' %}{{participant.champion.image.link}}"/>
+						        							<p><b>{{participant.champion.name}}</b></p>
+						        							<p></p>
+				        							</div>
+							        			</div>
+							        			{% endif %}
+						        			{% endfor %}
+					        			{% endfor %}
 				        		</div>
 				        		<div class="col s4 m4">
 									<p class="flow-text">Content champ</p>
