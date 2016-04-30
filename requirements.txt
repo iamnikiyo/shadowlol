@@ -1,6 +1,6 @@
 cassiopeia==0.1.1
 Django==1.9.4
-django-materialize-css==0.0.1
+django-mathfilters==0.4.0
 gunicorn==19.4.5
 SQLAlchemy==1.0.12
 virtualenv==15.0.1

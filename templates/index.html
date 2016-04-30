@@ -126,9 +126,11 @@
 
 	function sendSumm(){
 		var nameSumm = document.getElementById('name').value
+		var newName = nameSumm.replace(/ /g,'');
+		console.log(newName);
 		var region = document.getElementById('selectForm').value
 		var path = window.location.pathname;
-		var newUrl = path.substring(0,1) + region + "/" + nameSumm.toLowerCase();
+		var newUrl = path.substring(0,1) + region + "/" + newName.toLowerCase();
 		window.location.replace(newUrl);
 	}
 

@@ -1,6 +1,7 @@
 	
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load mathfilters %}
 {% block title %} {{ summoner.name }} {% endblock %}
 
 {% block style %}
@@ -82,11 +83,23 @@
 		margin-top:5px;
 		overflow:hidden;
 		position:relative;
-		border-right: 1px solid #4CAF50;
+		
 	}
 
 	.childGame{
 		
+	}
+
+	.winGame{
+		background-color:#66BB6A !important;
+		border:1px solid #24A72A;
+	}
+	.losseGame{
+		background-color:#EF5350 !important;
+		border:1px solid #BF4240;
+	}
+	p{
+		text-align:center;
 	}
 {% endblock %}
 
@@ -145,13 +158,19 @@
 				        			{% for item in games %}
 				        				{% for participant in item %}
 				        					{% if participant.summoner.name == summoner.name %}
-							        			<div class="col s12 m12 divGame green">
-							        				<div class="col s1 m1">				        					
-							        						<p><b>Win</b></p>
-							        						<p>Normal</p>
-							        						<p>38:40</p>
+				        					{%if item.stats.win %}		
+							        				<div class="col s12 m12 divGame z-depth-1 winGame">
+							        					<div class="col s3 m3">
+							        						<p><b>WIN</b></p>
+					        						{% else %}
+				        							<div class="col s12 m12 divGame z-depth-1 losseGame">
+							        					<div class="col s3 m3">
+					        								<p><b>LOSE</b></p>
+			        								{% endif %}
+							        						<p><b>{{item.sub_type|cut:"SubType."|upper}}</b></p>
+							        						<p><b>{{item.stats.time_played|div:60|stringformat:"i"}}M</b></p>
 							        				</div>
-							        				<div class="col s2 m2 offset-m1 offset-s1 childGame">
+							        				<div class="col s2 m2 childGame">
 						        							<img class="circle responsive-img" style="margin-top:5px" src="{% static 'img/' %}{{participant.champion.image.link}}"/>
 						        							<p><b>{{participant.champion.name}}</b></p>
 						        							<p></p>
