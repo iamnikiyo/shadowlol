@@ -46,8 +46,15 @@ def summoner_page(request,region,summoner):
 			i+=i
 		elo = item.tier.value + ' ' + entry
 		img = get_elo_image(item.tier.value,divi)
-		games = riotapi.get_recent_games(summonerObject)
-	return render(request,'summoner_page.html',{"summoner":summonerObject,"elo":elo,"ranking":img,"leagues":leagueObject,"games":games,"looptimes": range(5)})
+		match_list = riotapi.get_recent_games(summonerObject)
+		matches = []
+		for i in range(5):
+			match = match_list[i]
+			matches.append(match)
+	return render(request,'summoner_page.html',{"summoner":summonerObject,
+		"elo":elo,"ranking":img,
+		"leagues":leagueObject,
+		"matches":matches})
 
 
 def get_elo_image(tier,division):

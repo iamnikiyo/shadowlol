@@ -8,13 +8,13 @@ from cassiopeia.type.core.common import LoadPolicy
 
 def main():
     # Setup riotapi
-    riotapi.set_region("NA")
+    riotapi.set_region("EUW")
     riotapi.print_calls(False)
     key = "deef6b4f-d2b2-49a1-8aaf-9128a2fc54e3"  # You can create an env var called "DEV_KEY" that holds your developer key. It will be loaded here.
     riotapi.set_api_key(key)
     riotapi.set_load_policy(LoadPolicy.lazy)
 
-    dyrus = riotapi.get_summoner_by_name("Dyrus")  # SummonerID is 5908
+    dyrus = riotapi.get_summoner_by_name("bynikiyo")  # SummonerID is 5908
 
     match_list = dyrus.match_list()
     match = match_list[0].match()
@@ -36,11 +36,11 @@ def main():
 
     print()
 
-    champion = match.participants["Dyrus"].champion
+    champion = match.participants["bynikiyo"].champion
 
     print("You can use special key-words/key-objects to lookup the participants in the match.")
     print("  Lookup via Summoner:        {0}".format(match.participants[dyrus]))
-    print("  Lookup via summoner name:   {0}".format(match.participants["Dyrus"]))
+    print("  Lookup via summoner name:   {0}".format(match.participants["bynikiyo"]))
     print("  Lookup via Champion played: {0}".format(match.participants[champion]))
     print("  Lookup via champion name:   {0}".format(match.participants[champion.name]))
 
