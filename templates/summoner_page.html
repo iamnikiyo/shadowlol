@@ -108,21 +108,30 @@
 	}
 	.tableCell{
 		display:table-cell;
-		line-height:16px;
+		line-height:20px;
 		text-align:center;
 		vertical-align:middle;
+		padding:2%;
 
 	}
 	.cellImg {
 		width:46px;
 		height:46px;
-		vertical-align:middle;
-
 	}
+
 	.imgSpell{
 		width:22px;
 		height:22px;
-		
+		border-radius:10%;
+	}
+	.itemBuild {
+		display:inline-block;
+	}
+	.imgBuild{
+		width:32px;
+		height:32px;
+		border-radius:10%;
+
 	}
 {% endblock %}
 
@@ -139,7 +148,7 @@
 					<div class="col s12 m10 offset-m2" style="padding:15px;">
 						<div class="row valign-wrapper">
 							<div class="col s5 m3" style="padding:0px;">
-								<img class="circle responsive-img"  src="{% static 'img/' %}{{ summoner.profile_icon_id}}.jpg" />
+								<img class="circle responsive-img"  src="{% static 'img/profileicon/' %}{{ summoner.profile_icon_id}}.jpg" />
 							</div>
 							<div class="col s7 m7 offset-m1 offset-s1" style="vertical-align:middle;padding:0px;">
 								<div><span class="flow-text" >{{ summoner.name }}</span></div>
@@ -181,7 +190,7 @@
 				        			{% for match in matches %}
 				        				{% for participant in match.participants %}	
 				        					{% if participant.summoner.name == summoner.name %}
-				        						{%if participant.stats.win %}		
+				        						{%if match.stats.win %}		
 							        				<div class="col s12 m12 divGame z-depth-1 winGame">
 							        					<div class="tableCell">
 							        						<div>
@@ -194,20 +203,109 @@
 					        									<span style="font-size:1.1em;"><b>LOSE</b></span>
 					        								</div>
 			        								{% endif %}
-							        						<div><span style="font-size:0.8em;"><b>{{match.sub_type|upper}}</b></span></div>
-							        						<div><span style="font-size:0.8em;"><b> min</b></span></div>
+							        						<div><span style="font-size:0.8em;"><b>{{match.sub_type|cut:"SubType."|upper}}</b></span></div>
+							        						<div><span style="font-size:0.8em;"><b> {{match.stats.time_played|div:60|stringformat:"i"}} min</b></span></div>
 							        					</div>
 							        				<div class="tableCell">
-						        							<div style="display:inline-block;"><img class="circle cellImg" style="margin-top:5px" src="{% static 'img/' %}{{participant.champion.image.link}}"/>
+						        							<div style="display:inline-block;"><img class="circle cellImg" style="margin-top:5px" src="{% static 'img/champion/' %}{{participant.champion.image.link|cut:'.png'}}.jpg"/>
 						        							</div>
 						        							<div style="display:inline-block;">
-						        								<img class=" imgSpell" src="{% static 'img/Summoner'%}{{match.summoner_spell_d}}.jpg"/>
-						        								<img class=" imgSpell" src="{% static 'img/Summoner'%}{{match.summoner_spell_f}}.jpg"/>
-						        							<div><span><b>{{participant.champion.name}}</b></span></div>
-				        							</div>
-
-				        							
-							        			</div>
+						        								<img class=" imgSpell" src="{% static 'img/spell/Summoner'%}{{match.summoner_spell_d}}.jpg"/>
+						        								<img class=" imgSpell" src="{% static 'img/spell/Summoner'%}{{match.summoner_spell_f}}.jpg"/>
+							        							<div>
+							        								<span><b>{{participant.champion.name}}</b></span>
+						        								</div>
+					        								</div>
+						        					</div>
+						        					<div class="tableCell">
+					        									<div>
+					        										<span>{{match.stats.kills}}/{{match.stats.deaths}}/{{match.stats.assists}}</span>
+					        									</div>
+					        									<div>
+					        										<span>KDA: {{match.stats.kda|floatformat:"2"}}:1</span>
+					        									</div>
+					        									<div>
+				        											{% if match.stats.largest_multi_kill == 5 %}
+					        										<span>
+					        											 Penta Kill
+					        										</span>
+					        										{% elif match.stats.largest_multi_kill > 3 %}
+					        										<span>
+					        											 Quadra Kill
+					        										</span>
+					        										{% elif match.stats.largest_multi_kill > 2 %}
+					        										<span>
+					        											 Triple Kill
+					        										</span>
+					        										{% elif match.stats.largest_multi_kill > 1 %}
+					        										<span>
+					        											 Double Kill
+					        										</span>
+					        										{% else %}
+					        											<span></span>
+				        										
+				        										{% endif %}
+				        										</div>
+			        								</div>
+			        								<div class="tableCell">
+				        									<div>
+					        									<div class="itemBuild">
+					        									{% if match.stats.item0.id != null %}
+					        										<img class="imgBuild" src="{% static 'img/item/'%}{{match.stats.item0.id}}.jpg">
+				        										{% else %}
+				        											<img class="imgBuild" src="{% static 'img/item/none.png'%}">
+				        										{% endif %}
+					        									
+				        										</div>
+				        										<div class="itemBuild">
+				        										{% if match.stats.item1.id != null %}
+					        										<img class="imgBuild" src="{% static 'img/item/'%}{{match.stats.item1.id}}.jpg">
+				        										{% else %}
+				        											<img class="imgBuild" src="{% static 'img/item/none.png'%}">
+			        											{% endif %}
+				        										</div>
+				        										<div class="itemBuild">
+				        										{% if match.stats.item2.id != null %}
+					        										<img class="imgBuild" src="{% static 'img/item/'%}{{match.stats.item2.id}}.jpg">
+				        										{% else %}
+				        											<img class="imgBuild" src="{% static 'img/item/none.png'%}">
+			        											{% endif %}
+				        										</div>
+			        										</div>
+				        									<div>
+				        										<div class="itemBuild">
+				        										{% if match.stats.item3.id != null %}
+					        										<img class="imgBuild" src="{% static 'img/item/'%}{{match.stats.item3.id}}.jpg">
+				        										{% else %}
+				        											<img class="imgBuild" src="{% static 'img/item/none.png'%}">
+			        											{% endif %}
+				        										</div>
+				        										<div class="itemBuild">
+				        										{% if match.stats.item4.id != null %}
+					        										<img class="imgBuild" src="{% static 'img/item/'%}{{match.stats.item4.id}}.jpg">
+				        										{% else %}
+				        											<img class="imgBuild" src="{% static 'img/item/none.png'%}">
+			        											{% endif %}
+				        										</div>
+				        										<div class="itemBuild">
+				        										{% if match.stats.item5.id != null %}
+					        										<img class="imgBuild" src="{% static 'img/item/'%}{{match.stats.item5.id}}.jpg">
+				        										{% else %}
+				        											<img class="imgBuild" src="{% static 'img/item/none.png'%}">
+				        										{% endif %}
+				        										</div>
+			        										</div>
+			        								</div>
+			        								<div class="tableCell" style="width:32px;padding:0px;">
+			        										<div>
+		        											{% if match.stats.item6.id != null %}
+				        										<img class="imgBuild" src="{% static 'img/item/'%}{{match.stats.item6.id}}.jpg">
+			        										{% else %}
+			        											<img class="imgBuild" src="{% static 'img/item/none.png'%}">
+			        										{% endif %}
+		        										</div>
+	        										</div>
+	        										
 							        			</div>
 						        			{% endif %}
 					        			{% endfor %}
