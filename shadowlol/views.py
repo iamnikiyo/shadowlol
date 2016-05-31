@@ -31,30 +31,33 @@ def top_players(request,region):
 
 def summoner_page(request,region,summoner):
 	summonerObject = get_summoner_from_api(region,summoner)
-	leagues = summonerObject.league_entries();
 	elo = 'unDefined'
 	noFind = True
 	i=0
-	for item in leagues:
-		while(noFind):
-			if item.entries[i].summoner_name == summonerObject.name :
-				lp = item.entries[i].league_points
-				divi = item.entries[i].division.value
-				entry = divi + ' (LP ' + str(lp) + ')'
-				leagueObject = item.entries[i]
-				noFind = False
-			i+=i
-		elo = item.tier.value + ' ' + entry
-		img = get_elo_image(item.tier.value,divi)
-		match_list = riotapi.get_recent_games(summonerObject)
-		matches = []
-		for i in range(5):
-			match = match_list[i]
-			matches.append(match)
-	return render(request,'summoner_page.html',{"summoner":summonerObject,
-		"elo":elo,"ranking":img,
-		"leagues":leagueObject,
-		"matches":matches})
+	if(summonerObject.level == 30) :
+		leagues = summonerObject.league_entries();
+		for item in leagues:
+			while(noFind):
+				if item.entries[i].summoner_name == summonerObject.name :
+					lp = item.entries[i].league_points
+					divi = item.entries[i].division.value
+					entry = divi + ' (LP ' + str(lp) + ')'
+					leagueObject = item.entries[i]
+					noFind = False
+				i+=i
+			elo = item.tier.value + ' ' + entry
+			img = get_elo_image(item.tier.value,divi)
+			match_list = riotapi.get_recent_games(summonerObject)
+			matches = []
+			for i in range(5):
+				match = match_list[i]
+				matches.append(match)
+		return render(request,'summoner_page.html',{"summoner":summonerObject,
+			"elo":elo,"ranking":img,
+			"leagues":leagueObject,
+			"matches":matches})
+	else:
+		return render(request,'summoner_page.html',{"summoner":summonerObject})
 
 
 def get_elo_image(tier,division):

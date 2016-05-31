@@ -14,7 +14,7 @@ def main():
     riotapi.set_api_key(key)
     riotapi.set_load_policy(LoadPolicy.lazy)
 
-    dyrus = riotapi.get_summoner_by_name("bynikiyo")  # SummonerID is 5908
+    dyrus = riotapi.get_summoner_by_name("chetokaiser")  # SummonerID is 5908
 
     match_list = dyrus.match_list()
     match = match_list[0].match()
@@ -36,11 +36,11 @@ def main():
 
     print()
 
-    champion = match.participants["bynikiyo"].champion
+    champion = match.participants["chetokaiser"].champion
 
     print("You can use special key-words/key-objects to lookup the participants in the match.")
     print("  Lookup via Summoner:        {0}".format(match.participants[dyrus]))
-    print("  Lookup via summoner name:   {0}".format(match.participants["bynikiyo"]))
+    print("  Lookup via summoner name:   {0}".format(match.participants["chetokaiser"]))
     print("  Lookup via Champion played: {0}".format(match.participants[champion]))
     print("  Lookup via champion name:   {0}".format(match.participants[champion.name]))
 

@@ -10,12 +10,11 @@ riotapi.set_api_key(key)
 riotapi.set_load_policy("eager")
 
 summoner = riotapi.get_summoner_by_name("bynikiyo")  
-match_list = riotapi.get_recent_games(summoner)
-matches = []
-for i in range(5):
-	match = match_list[i]
-	matches.append(match)
+lista = riotapi.get_ranked_stats(summoner)
+wins = []
+for x,y in lista.items():
+	wins.append(y.wins)
 
-for match in matches:
-	for participant in match.participants:
-			print(participant.summoner.name)
+for x,y in lista.items():
+	if y.wins == max(wins):
+		print(x)
