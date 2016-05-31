@@ -1,0 +1,112 @@
+#generalData{
+  margin-top:15px;
+  background-color:#f5f2f0;
+  padding:0px !important;
+  border: 1px solid rgba(51,51,51,0.12);
+}
+main {
+  background-color:#e0e0e0;
+  margin:0px;
+}
+#myFooter {
+  margin-top:0px;
+}
+#divMedio{
+  border: 1px solid rgba(51,51,51,0.12);
+  margin-top:15px;
+}
+.titleDiv{
+  font-weight:bold;
+  text-align:center;
+  padding:5px !important;
+  margin:0px !important;
+  background-color:#EAEAEA;
+  border-bottom: 1px solid rgba(51,51,51,0.12);
+}
+.divRight{
+  margin-left:10px !important;
+}
+@media (max-width: 600px) {
+  .divRight{
+    margin-left:0px !important;
+  }
+}
+.tabs{
+  border: 1px solid rgba(51,51,51,0.12);
+}
+.tabs .tab a {
+  color:black;
+}
+.tabs .tab a:hover{
+  color:#bc0810;
+}
+.tabs .indicator {
+  background-color:#bc0810;
+}
+#divContentTabs {
+  background-color:#f5f2f0;
+  border: 1px solid rgba(51,51,51,0.12);
+  padding:0px;
+}
+#divTabs{
+  padding:0px !important;
+}
+ul{max-width:100%; !important}
+.tab-content{
+  display:none;
+}
+.tab-content.current {
+    display: inherit;
+  }
+.divInsideTab{
+  padding:5px !important;
+  border-right: 1px solid rgba(51,51,51,0.12);
+}
+.divGame{
+  margin-top:5px;
+  overflow:hidden;
+  position:relative;
+
+}
+.childGame{
+
+}
+.winGame{
+  background-color:#66BB6A !important;
+  border:1px solid #24A72A;
+  display:table;
+  table-layout:fixed;
+}
+.losseGame{
+  background-color:#EF5350 !important;
+  border:1px solid #BF4240;
+  display:table;
+  table-layout:fixed;
+    }
+p{
+  text-align:center;
+}
+.tableCell{
+  display:table-cell;
+  line-height:20px;
+  text-align:center;
+  vertical-align:middle;
+}
+.cellImg {
+  width:46px;
+  height:46px;
+}
+.imgSpell{
+  width:22px;
+  height:22px;
+  border-radius:10%;
+}
+.itemBuild {
+  display:inline-block;
+}
+.imgBuild{
+  width:32px;
+  height:32px;
+  border-radius:10%;
+
+}
