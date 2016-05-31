@@ -1,143 +1,11 @@
-	
+
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load mathfilters %}
 {% block title %} {{ summoner.name }} {% endblock %}
-
-{% block style %}
-	#generalData{
-		margin-top:15px;
-		background-color:#f5f2f0;
-		padding:0px !important;
-		border: 1px solid rgba(51,51,51,0.12);
-	}
-	main {
-		background-color:#e0e0e0;
-		margin:0px;
-	}
-	#myFooter {
-		margin-top:0px;
-	}
-	#divMedio{
-		border: 1px solid rgba(51,51,51,0.12);
-		margin-top:15px;
-	}
-	.titleDiv{
-		font-weight:bold;
-		text-align:center;
-		padding:5px !important;
-		margin:0px !important;
-		background-color:#EAEAEA;
-		border-bottom: 1px solid rgba(51,51,51,0.12);
-	}
-	.divRight{
-		margin-left:10px !important;
-
-	}
-	@media (max-width: 600px) {
-
-		.divRight{
-			margin-left:0px !important;
-		}
-	}
-
-	.tabs{
-		border: 1px solid rgba(51,51,51,0.12);
-
-	}
-	.tabs .tab a {
-
-		color:black;
-		
-	}
-	.tabs .tab a:hover{
-		color:#bc0810;
-	}
-	.tabs .indicator {
-		background-color:#bc0810;
-	}
-	#divContentTabs {
-		background-color:#f5f2f0;
-		border: 1px solid rgba(51,51,51,0.12);
-		padding:0px;
-
-	}
-	#divTabs{
-		padding:0px !important;
-
-	}
-	ul{max-width:100%; !important}
-	
-	.tab-content{
-		display:none;
-
-	}
-	.tab-content.current {
-			display: inherit;
-		}
-	.divInsideTab{
-		padding:5px !important; 
-		border-right: 1px solid rgba(51,51,51,0.12);
-	}
-	.divGame{
-		margin-top:5px;
-		overflow:hidden;
-		position:relative;
-		
-	}
-
-	.childGame{
-		
-	}
-
-	.winGame{
-		background-color:#66BB6A !important;
-		border:1px solid #24A72A;
-		display:table;
-		table-layout:fixed;
-		width:100%;
-		
-	}
-	.losseGame{
-		background-color:#EF5350 !important;
-		border:1px solid #BF4240;
-		display:table;
-		table-layout:fixed;
-		width:100%;
-	}
-	p{
-		text-align:center;
-	}
-	.tableCell{
-		display:table-cell;
-		line-height:20px;
-		text-align:center;
-		vertical-align:middle;
-		padding:2%;
-
-	}
-	.cellImg {
-		width:46px;
-		height:46px;
-	}
-
-	.imgSpell{
-		width:22px;
-		height:22px;
-		border-radius:10%;
-	}
-	.itemBuild {
-		display:inline-block;
-	}
-	.imgBuild{
-		width:32px;
-		height:32px;
-		border-radius:10%;
-
-	}
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/summonerPage.css' %}"/>
 {% endblock %}
-
-
 {% block content %}
 	<div class="row grey lighten-2" id="contenedor">
 		<div class="col s12  m10 offset-m1 grey lighten-3 z-depth-1" id="divMedio">
@@ -146,7 +14,7 @@
 					<div class="col s12 titleDiv">
 						<h7 class="flow-text"><b>General Data</b></h7>
 					</div>
-					
+
 					<div class="col s12 m10 offset-m2" style="padding:15px;">
 						<div class="row valign-wrapper">
 							<div class="col s5 m3" style="padding:0px;">
@@ -171,11 +39,11 @@
 							<div class="col s7 m7 offset-m1	offset-s1" style="vertical-align:middle;padding:0px;">
 								<div><span class="flow-text">{{ elo }}</span></div>
 								<div><span class="flow-text"> {{ leagues.wins }}W/{{leagues.losses}}L</span></div>
-								
+
 							</div>
 						</div>
 					</div>
-				</div>	
+				</div>
 			</div>
 			<div class="row">
 				<div class="col s12  m10 offset-m1" id="divTabs">
@@ -190,65 +58,68 @@
 				        	<div id="tab-1" class="tab-content current">
 				        		<div class="col s8 m8 divInsideTab">
 				        			{% for match in matches %}
-				        				{% for participant in match.participants %}	
+				        				{% for participant in match.participants %}
 				        					{% if participant.summoner.name == summoner.name %}
-				        						{%if match.stats.win %}		
-							        				<div class="col s12 m12 divGame z-depth-1 winGame">
+				        						{%if match.stats.win %}
+							        				<div class="col s12 m12  divGame z-depth-1 winGame">
 							        					<div class="tableCell">
 							        						<div>
 							        							<span style="font-size:1.1em;"><b>WIN</b></span>
 						        							</div>
 					        						{% else %}
-				        							<div class="col s12 m12 divGame z-depth-1 losseGame">
+				        							<div class="col s12 m12  divGame z-depth-1  losseGame">
 							        					<div class="tableCell">
 					        								<div>
 					        									<span style="font-size:1.1em;"><b>LOSE</b></span>
 					        								</div>
 			        								{% endif %}
+															<!-- GENERAL GAME DATA -->
 							        						<div><span style="font-size:0.8em;"><b>{{match.sub_type|cut:"SubType."|upper}}</b></span></div>
 							        						<div><span style="font-size:0.8em;"><b> {{match.stats.time_played|div:60|stringformat:"i"}} min</b></span></div>
 							        					</div>
-							        				<div class="tableCell">
-						        							<div style="display:inline-block;"><img class="circle cellImg" style="margin-top:5px" src="{% static 'img/champion/' %}{{participant.champion.image.link|cut:'.png'}}.jpg"/>
-						        							</div>
-						        							<div style="display:inline-block;">
-						        								<img class=" imgSpell" src="{% static 'img/spell/Summoner'%}{{match.summoner_spell_d}}.jpg"/>
-						        								<img class=" imgSpell" src="{% static 'img/spell/Summoner'%}{{match.summoner_spell_f}}.jpg"/>
-							        							<div>
-							        								<span><b>{{participant.champion.name}}</b></span>
-						        								</div>
-					        								</div>
-						        					</div>
+																<!-- GENERAL GAME DATA END -->
+																<!-- CHAMPION DATA -->
+															<div class="tableCell"><img class="circle cellImg" style="margin-top:5px" src="{% static 'img/champion/' %}{{participant.champion.image.link|cut:'.png'}}.jpg"/>
+															</div>
+															<div class="tableCell">
+																<img class=" imgSpell" src="{% static 'img/spell/Summoner'%}{{match.summoner_spell_d}}.jpg"/>
+																<img class=" imgSpell" src="{% static 'img/spell/Summoner'%}{{match.summoner_spell_f}}.jpg"/>
+																<div>
+																	<span class="gameChampName" >{{participant.champion.name}}</span>
+																</div>
+															</div>
+															<!-- CHAMPION DATA END -->
 						        					<div class="tableCell">
-					        									<div>
-					        										<span>{{match.stats.kills}}/{{match.stats.deaths}}/{{match.stats.assists}}</span>
+					        									<div class="divChampData">
+					        										<span class="gameKills">{{match.stats.kills}}/<span class="gameDeads">{{match.stats.deaths}}</span>/{{match.stats.assists}}</span>
 					        									</div>
-					        									<div>
+					        									<div class="divChampData">
 					        										<span>KDA: {{match.stats.kda|floatformat:"2"}}:1</span>
 					        									</div>
-					        									<div>
+					        									<div class="divChampData">
 				        											{% if match.stats.largest_multi_kill == 5 %}
-					        										<span>
+					        										<span class="gameKillSpread">
 					        											 Penta Kill
 					        										</span>
 					        										{% elif match.stats.largest_multi_kill > 3 %}
-					        										<span>
+					        										<span class="gameKillSpread">
 					        											 Quadra Kill
 					        										</span>
 					        										{% elif match.stats.largest_multi_kill > 2 %}
-					        										<span>
+					        										<span class="gameKillSpread">
 					        											 Triple Kill
 					        										</span>
 					        										{% elif match.stats.largest_multi_kill > 1 %}
-					        										<span>
+					        										<span class="gameKillSpread">
 					        											 Double Kill
 					        										</span>
 					        										{% else %}
 					        											<span></span>
-				        										
+
 				        										{% endif %}
 				        										</div>
 			        								</div>
+						<!-- BUILD ITEMS ----------->
 			        								<div class="tableCell">
 				        									<div>
 					        									<div class="itemBuild">
@@ -257,7 +128,7 @@
 				        										{% else %}
 				        											<img class="imgBuild" src="{% static 'img/item/none.png'%}">
 				        										{% endif %}
-					        									
+
 				        										</div>
 				        										<div class="itemBuild">
 				        										{% if match.stats.item1.id != null %}
@@ -298,6 +169,8 @@
 				        										</div>
 			        										</div>
 			        								</div>
+														<!-- BUILD ITEMS END ----------->
+														<!-- WARD ITEM ----------->
 			        								<div class="tableCell" style="width:32px;padding:0px;">
 			        										<div>
 		        											{% if match.stats.item6.id != null %}
@@ -307,7 +180,8 @@
 			        										{% endif %}
 		        										</div>
 	        										</div>
-	        										
+														<!-- WARD ITEM END ----------->
+
 							        			</div>
 						        			{% endif %}
 					        			{% endfor %}
@@ -321,7 +195,7 @@
 				        		<h1>Im games</h1>
 				        	</div>
 				        </div>
-			     
+
 				</div>
 			</div>
 	</div>
@@ -330,7 +204,7 @@
 {% block js %}
 
 	$(document).ready(function(){
-		
+
 		$('ul.tabs li').click(function(){
 			var tab_id = $(this).attr('data-tab');
 
