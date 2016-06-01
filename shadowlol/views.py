@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from cassiopeia import riotapi
+from cassiopeia import baseriotapi
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
@@ -30,40 +31,51 @@ def top_players(request,region):
 	return render(request,'top_players.html',{"listTopPlayers" : list_pages })
 
 def summoner_page(request,region,summoner):
-	summonerObject = get_summoner_from_api(region,summoner)
-	elo = 'unDefined'
-	noFind = True
-	i=0
-	if(summonerObject.level == 30) :
-		leagues = summonerObject.league_entries();
-		for item in leagues:
-			while(noFind):
-				if item.entries[i].summoner_name == summonerObject.name :
-					lp = item.entries[i].league_points
-					divi = item.entries[i].division.value
-					entry = divi + ' (LP ' + str(lp) + ')'
-					leagueObject = item.entries[i]
-					noFind = False
-				i+=i
-			elo = item.tier.value + ' ' + entry
-			img = get_elo_image(item.tier.value,divi)
+	try:
+		summonerObject = get_summoner_from_api(region,summoner)
+		elo = 'Unknown'
+		noFind = True
+		i=0
+		if(summonerObject.level == 30) :
+			leagues = summonerObject.league_entries();
+			for item in leagues:
+				while(noFind):
+					if item.entries[i].summoner_name == summonerObject.name :
+						lp = item.entries[i].league_points
+						divi = item.entries[i].division.value
+						entry = divi + ' (LP ' + str(lp) + ')'
+						leagueObject = item.entries[i]
+						noFind = False
+					i+=i
+				elo = item.tier.value + ' ' + entry
+				img = get_elo_image(item.tier.value,divi)
+				match_list = riotapi.get_recent_games(summonerObject)
+				matches = []
+				for i in range(5):
+					match = match_list[i]
+					matches.append(match)
+			return render(request,'summoner_page.html',{"summoner":summonerObject,
+				"elo":elo,"ranking":img,
+				"leagues":leagueObject,
+				"matches":matches})
+		else:
 			match_list = riotapi.get_recent_games(summonerObject)
 			matches = []
 			for i in range(5):
 				match = match_list[i]
 				matches.append(match)
-		return render(request,'summoner_page.html',{"summoner":summonerObject,
-			"elo":elo,"ranking":img,
-			"leagues":leagueObject,
-			"matches":matches})
-	else:
-		return render(request,'summoner_page.html',{"summoner":summonerObject})
-
+				img= get_elo_image(elo,"")
+			return render(request,'summoner_page.html',{"summoner":summonerObject,"elo":elo,"matches":matches,"ranking":img})
+	except Exception as e:
+		return render(request,'notfound.html')
 
 def get_elo_image(tier,division):
-	rank = tier +"_"+ division + "-min.png"
+	if tier == "Unknown":
+		rank = "unknown-min.png"
+	else:
+		rank = tier +"_"+ division + "-min.png"
 	return rank
-	
+
 
 def get_summoner_from_api(region,summoner):
 	riotapi.set_region(region)
@@ -72,7 +84,7 @@ def get_summoner_from_api(region,summoner):
 
 def get_region(request):
 	if request.method == 'POST':
-		reg= request.POST.get("region")	
+		reg= request.POST.get("region")
 	else:
 		reg= "euw"
 	riotapi.set_region(reg)
@@ -91,4 +103,8 @@ def pagination(request,lista,x):
 		list_pages = paginator.page(paginator.num_pages)
 	return list_pages
 
-
+# IN DEVELOPMENT ----------------
+def get_top_champs_by_summoner(summoner,region):
+	baseriotapi.set_region(region)
+	baseriotapi.set_api_key(settings.RIOT_KEY)
+	champs = baseriotapi.get_ranked_stats(summoner.id,'SEASON2016')
