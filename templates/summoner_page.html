@@ -62,33 +62,34 @@
 				        					{% if participant.summoner.name == summoner.name %}
 				        						{%if match.stats.win %}
 							        				<div class="col s12 m12  divGame z-depth-1 winGame">
-							        					<div class="tableCell">
+							        					<div class="tableCell generalDataGame">
 							        						<div>
-							        							<span style="font-size:1.1em;"><b>WIN</b></span>
+							        							<span class="winGameText">WIN</span>
 						        							</div>
 					        						{% else %}
 				        							<div class="col s12 m12  divGame z-depth-1  losseGame">
-							        					<div class="tableCell">
+							        					<div class="tableCell generalDataGame">
 					        								<div>
-					        									<span style="font-size:1.1em;"><b>LOSE</b></span>
+					        									<span  class="losseGameText">LOSE</span>
 					        								</div>
 			        								{% endif %}
 															<!-- GENERAL GAME DATA -->
-							        						<div><span style="font-size:0.8em;"><b>{{match.sub_type|cut:"SubType."|upper}}</b></span></div>
+							        						<div><span style="font-size:0.8em;"><b>{{match.sub_type|cut:"SubType."|upper|cut:"_FIVES"|cut:"_SOLO"}} </b></span></div>
 							        						<div><span style="font-size:0.8em;"><b> {{match.stats.time_played|div:60|stringformat:"i"}} min</b></span></div>
 							        					</div>
 																<!-- GENERAL GAME DATA END -->
 																<!-- CHAMPION DATA -->
-															<div class="tableCell"><img class="circle cellImg" style="margin-top:5px" src="{% static 'img/champion/' %}{{participant.champion.image.link|cut:'.png'}}.jpg"/>
+															<div class="tableCell champImgDiv"><img class="circle cellImg" style="margin-top:5px" src="{% static 'img/champion/' %}{{participant.champion.image.link|cut:'.png'}}.jpg"/>
 															</div>
-															<div class="tableCell">
+															<div class="tableCell" id="champSpells">
 																<img class=" imgSpell" src="{% static 'img/spell/Summoner'%}{{match.summoner_spell_d}}.jpg"/>
 																<img class=" imgSpell" src="{% static 'img/spell/Summoner'%}{{match.summoner_spell_f}}.jpg"/>
-																<div>
+																<div style="text-align:center;">
 																	<span class="gameChampName" >{{participant.champion.name}}</span>
 																</div>
 															</div>
 															<!-- CHAMPION DATA END -->
+															<!-- KDA STATS -->
 						        					<div class="tableCell">
 					        									<div class="divChampData">
 					        										<span class="gameKills">{{match.stats.kills}}/<span class="gameDeads">{{match.stats.deaths}}</span>/{{match.stats.assists}}</span>
@@ -114,11 +115,19 @@
 					        											 Double Kill
 					        										</span>
 					        										{% else %}
-					        											<span></span>
-
+					        											<span> </span>
 				        										{% endif %}
 				        										</div>
 			        								</div>
+															<!-- LEVEL AND FARM  DATA -->
+																<div class="tableCell gameLevelDiv">
+																	<div class="gameLevel">
+																		<span>Level {{match.stats.level}}</span>
+																	</div>
+																	<div>
+																		<span>{{match.stats.minion_kills}} CS </span>
+																	</div>
+																</div>
 						<!-- BUILD ITEMS ----------->
 			        								<div class="tableCell">
 				        									<div>

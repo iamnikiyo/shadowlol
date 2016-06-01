@@ -76,6 +76,7 @@ border-spacing: 10px;
   border:1px solid #81c784;
   display:table;
   table-layout:fixed;
+  padding:0px;
 
 }
 .losseGame{
@@ -83,6 +84,7 @@ border-spacing: 10px;
   border:1px solid #e57373;
   display:table;
   table-layout:fixed;
+  padding:0px;
     }
 p{
   text-align:center;
@@ -94,12 +96,11 @@ p{
   vertical-align:middle;
 }
 .cellImg {
-  width:46px;
-  height:46px;
+  width:100%;
 }
 .imgSpell{
-  width:25%;
-  max-width: 25%;
+ width:100%;
+  max-width: 30%;
   height:auto;
   border-radius:10%;
 }
@@ -132,3 +133,38 @@ margin-top:5px;
   color:#e53935;
   letter-spacing: 1px;
 }
+.gameLevel{
+    font-weight: bold;
+}
+
+.winGameText{
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #43a047;
+}
+.losseGameText{
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #e53935 ;
+}
+.champImgDiv{
+  width:80px;
+}
+@media (max-width: 1400px) {
+  #champSpells{
+      width:65px !important;
+      }
+    .gameLevelDiv{
+      width:12%;
+    }
+    .champImgDiv{
+      max-width: 19%;
+      width:65px;
+    }
+    .imgSpell{
+      max-width: 45%;
+    }
+    .generalDataGame{
+      width:65px;
+    }
+  }
