@@ -1,15 +1,46 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block title %} Not Found {% endblock %}
+{% block links %}
+<script src="https://use.fontawesome.com/eb3f04cd57.js"></script>
+  <script type="text/javascript">
+  function goHome(){
+    var path = window.location.origin
+    window.location.replace(path);
+  }
+  </script>
+{% endblock %}
 {% block style %}
   .divContainer{
    background-color: #eeeeee;
+   padding-top:12% !important;
+   padding-bottom:12% !important;
   }
+  #myFooter{
+    margin-top:0px !important;
+  }
+  .divRow{
+    background-color:#2f2f2f;
+  }
+
 {% endblock %}
+
 {% block content %}
-	<div class="row valign-wrapper">
-    <div class="col s4 offset-s4 divContainer" style="text-align:center;" class="col s4 offset-s4">
-      <h1>DATA NOT FOUND</h1>
+	<div class="row valign-wrapper divRow" style="height:100%">
+    <div class="col s4 offset-s4 divContainer valign z-depth-2" style="text-align:center;" class="col s4 offset-s4">
+      <h3>Upps! Something was wrong</h3>
+    <ul class="collection">
+      <li class="collection-header"><h5>If you are searching a summoner try to: </h5> </li>
+      <li class="collection-item">Select the correct region for that summoner</li>
+      <li class="collection-item">Press summoner button for search o press enter key</li>
+      <li class="collection-item">Enter the name correctly</li>
+      <li class="collection-header"><h5>If you are searching a champion try to: </h5> </li>
+      <li class="collection-item">You must click on the champ button</li>
+      <li class="collection-item">Enter the name correctly</li>
+    </ul>
+      <button class="btn waves-effect waves-light red lighten-1" onclick="goHome()"  name="action">Go Home
+        <i class="fa fa-home" aria-hidden="true"></i>
+      </button>
     </div>
   </div>
 {% endblock%}

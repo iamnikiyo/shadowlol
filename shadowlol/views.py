@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django import forms
 import random
+import json
 
 def summoner_champMastery(request):
 	riotapi.set_region("EUW")
@@ -51,13 +52,15 @@ def summoner_page(request,region,summoner):
 				img = get_elo_image(item.tier.value,divi)
 				match_list = riotapi.get_recent_games(summonerObject)
 				matches = []
+				dictionary = get_top_champs_by_summoner(summonerObject,region)
 				for i in range(5):
 					match = match_list[i]
 					matches.append(match)
 			return render(request,'summoner_page.html',{"summoner":summonerObject,
 				"elo":elo,"ranking":img,
 				"leagues":leagueObject,
-				"matches":matches})
+				"matches":matches,
+				"champs":dictionary})
 		else:
 			match_list = riotapi.get_recent_games(summonerObject)
 			matches = []
@@ -108,3 +111,11 @@ def get_top_champs_by_summoner(summoner,region):
 	baseriotapi.set_region(region)
 	baseriotapi.set_api_key(settings.RIOT_KEY)
 	champs = baseriotapi.get_ranked_stats(summoner.id,'SEASON2016')
+	objeto = json.loads(str(champs))
+	longitud = len(objeto["champions"])
+	dictionary = {}
+	for i in range(longitud):
+	    listado = [str(objeto["champions"][i]["stats"]['totalSessionsPlayed']),str(objeto["champions"][i]["stats"]['totalAssists']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalMinionKills'])]
+	    dictionary[objeto["champions"][i]['id']] = listado
+	del dictionary[0]
+	return dictionary
