@@ -13,19 +13,21 @@ riotapi.set_api_key(key)
 riotapi.set_load_policy("eager")
 
 summoner = riotapi.get_summoner_by_name("bynikiyo")
-lista = riotapi.get_ranked_stats(summoner)
-baseriotapi.set_region("EUW")
-baseriotapi.set_api_key(key)
-champs = baseriotapi.get_ranked_stats(summoner.id,'SEASON2016')
-objeto = json.loads(str(champs))
-longitud = len(objeto["champions"])
+lista = riotapi.get_ranked_stats(summoner,season=None)
 dictionary = {}
 wins = []
-for i in range(longitud):
-    if objeto["champions"][i]['id'] != 0:
-        wins.append(objeto["champions"][i]["stats"]['totalSessionsPlayed'])
-        listado = [str(objeto["champions"][i]["stats"]['totalSessionsPlayed']),str(objeto["champions"][i]["stats"]['totalAssists']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalMinionKills'])]
-        champion = riotapi.get_champion_by_id(objeto["champions"][i]['id'])
-        dictionary[champion] = listado
+for key,value in lista.items():
+	if str(key) != 'None':
+		sumka = value.assists + value.kills
+		wins.append(value.games_played)
+		listData = [value.games_played,value.assists,value.kills,value.deaths,value.minions_killed,sumka]
+		champ = riotapi.get_champion_by_name(str(key))
+		dictionary[champ] = listData
+
 bestof = heapq.nlargest(5,wins)
-print(bestof)
+final = {}
+for key,value in dictionary.items():
+	for item in bestof:
+		if str(item) == str(value[0]):
+			final[key] = value
+print(final)

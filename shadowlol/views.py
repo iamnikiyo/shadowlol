@@ -33,7 +33,7 @@ def top_players(request,region):
 	return render(request,'top_players.html',{"listTopPlayers" : list_pages })
 
 def summoner_page(request,region,summoner):
-	#try:
+	try:
 		summonerObject = get_summoner_from_api(region,summoner)
 		elo = 'Unknown'
 		noFind = True
@@ -70,8 +70,8 @@ def summoner_page(request,region,summoner):
 				matches.append(match)
 				img= get_elo_image(elo,"")
 			return render(request,'summoner_page.html',{"summoner":summonerObject,"elo":elo,"matches":matches,"ranking":img})
-	# except Exception as e:
-	#	return render(request,'notfound.html')
+	except Exception as e:
+ 		return render(request,'notfound.html')
 
 def get_elo_image(tier,division):
 	if tier == "Unknown":
@@ -109,25 +109,22 @@ def pagination(request,lista,x):
 
 # IN DEVELOPMENT ----------------
 def get_top_champs_by_summoner(summoner,region,numberChamps):
-	baseriotapi.set_region(region)
-	baseriotapi.set_api_key(settings.RIOT_KEY)
-	champs = baseriotapi.get_ranked_stats(summoner.id,'SEASON2016')
-	objeto = json.loads(str(champs))
-	longitud = len(objeto["champions"])
+	lista = riotapi.get_ranked_stats(summoner,season=None)
 	dictionary = {}
 	wins = []
-	for i in range(longitud):
-	    if objeto["champions"][i]['id'] != 0:
-	    	wins.append(objeto["champions"][i]["stats"]['totalSessionsPlayed'])
-	    	sumka = objeto["champions"][i]["stats"]['totalAssists'] + objeto["champions"][i]["stats"]['totalChampionKills']
-	    	listado = [str(objeto["champions"][i]["stats"]['totalSessionsPlayed']),str(objeto["champions"][i]["stats"]['totalAssists']),str(objeto["champions"][i]["stats"]['totalChampionKills']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalMinionKills']),sumka]
-	    	champion = riotapi.get_champion_by_id(objeto["champions"][i]['id'])
-	    	dictionary[champion] = listado
+	for key,value in lista.items():
+		if str(key) != 'None':
+			sumka = value.assists + value.kills
+			wins.append(value.games_played)
+			listData = [value.games_played,value.assists,value.kills,value.deaths,value.minions_killed,sumka]
+			champ = riotapi.get_champion_by_name(str(key))
+			dictionary[champ] = listData
+
 	bestof = heapq.nlargest(numberChamps,wins)
 	final = {}
-	for key,value in dictionary.items():
-		for item in bestof:
+	for item in bestof:
+		for key,value in dictionary.items():
 			if str(item) == str(value[0]):
 				final[key] = value
-
 	return final
+	# Si el summoner tiene 15 partidas por ejemplo con dos campeones y 15 esta en la lista sale doble campeon

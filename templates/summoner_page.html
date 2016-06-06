@@ -203,14 +203,14 @@
 											<!-- CHAMP SECTION -->
 											{% for key,value in champs.items %}
 											<div class="champBoxTable col s12">
-														<div class="champBoxCell">
-															<img class="responsive-img topImageChamp circle"  src="{% static 'img/champion/' %}{{key.image.link|cut:'.png'}}.jpg"/>
+														<div class="champBoxCell col s2 topImageChamp" >
+															<img class="responsive-img  circle"  src="{% static 'img/champion/' %}{{key.image.link|cut:'.png'}}.jpg"/>
 														</div>
-														<div class="champBoxCell">
+														<div class="champBoxCell col s3">
 																<span class="champBoxName">{{key.name}}</span>
 																<span class="champBoxCS">{{value.4|div:value.0|stringformat:"i"}} CS</span>
 													</div>
-													<div class="champBoxCell">
+													<div class="champBoxCell col s4">
 														{% if value.5|div:value.3 > 4 %}
 															<span class="blue-text champBoxKDAPercent">{{ value.5|div:value.3|floatformat:"2" }}:1 KDA</span>
 														{% elif value.5|div:value.3 > 3 %}
@@ -220,7 +220,7 @@
 														{% endif %}
 														<span class="champBoxKDA">{{value.2|div:value.0|floatformat:"1"}}/{{value.3|div:value.0|floatformat:"1"}}/{{value.1|div:value.0|floatformat:"1"}}</span>
 													</div>
-													<div class="champBoxCell">
+													<div class="champBoxCell col s3 champBoxGamesPlayed">
 														<span class="champBoxTotalGames">{{value.0}} games </span>
 													</div>
 												</div>
