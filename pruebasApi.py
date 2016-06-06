@@ -4,6 +4,7 @@ from cassiopeia import riotapi
 from cassiopeia import baseriotapi
 from cassiopeia.type.core.common import LoadPolicy
 import json
+import heapq
 
 riotapi.set_region("EUW")
 riotapi.print_calls(False)
@@ -19,6 +20,12 @@ champs = baseriotapi.get_ranked_stats(summoner.id,'SEASON2016')
 objeto = json.loads(str(champs))
 longitud = len(objeto["champions"])
 dictionary = {}
+wins = []
 for i in range(longitud):
-    listado = [str(objeto["champions"][i]["stats"]['totalSessionsPlayed']),str(objeto["champions"][i]["stats"]['totalAssists']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalMinionKills'])]
-    dictionary[objeto["champions"][i]['id']] = listado
+    if objeto["champions"][i]['id'] != 0:
+        wins.append(objeto["champions"][i]["stats"]['totalSessionsPlayed'])
+        listado = [str(objeto["champions"][i]["stats"]['totalSessionsPlayed']),str(objeto["champions"][i]["stats"]['totalAssists']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalMinionKills'])]
+        champion = riotapi.get_champion_by_id(objeto["champions"][i]['id'])
+        dictionary[champion] = listado
+bestof = heapq.nlargest(5,wins)
+print(bestof)

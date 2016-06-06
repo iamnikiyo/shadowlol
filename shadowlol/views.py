@@ -7,6 +7,7 @@ from django.conf import settings
 from django import forms
 import random
 import json
+import heapq
 
 def summoner_champMastery(request):
 	riotapi.set_region("EUW")
@@ -32,7 +33,7 @@ def top_players(request,region):
 	return render(request,'top_players.html',{"listTopPlayers" : list_pages })
 
 def summoner_page(request,region,summoner):
-	try:
+	#try:
 		summonerObject = get_summoner_from_api(region,summoner)
 		elo = 'Unknown'
 		noFind = True
@@ -52,7 +53,7 @@ def summoner_page(request,region,summoner):
 				img = get_elo_image(item.tier.value,divi)
 				match_list = riotapi.get_recent_games(summonerObject)
 				matches = []
-				dictionary = get_top_champs_by_summoner(summonerObject,region)
+				dictionary = get_top_champs_by_summoner(summonerObject,region,5)
 				for i in range(5):
 					match = match_list[i]
 					matches.append(match)
@@ -69,8 +70,8 @@ def summoner_page(request,region,summoner):
 				matches.append(match)
 				img= get_elo_image(elo,"")
 			return render(request,'summoner_page.html',{"summoner":summonerObject,"elo":elo,"matches":matches,"ranking":img})
-	except Exception as e:
-		return render(request,'notfound.html')
+	# except Exception as e:
+	#	return render(request,'notfound.html')
 
 def get_elo_image(tier,division):
 	if tier == "Unknown":
@@ -107,15 +108,26 @@ def pagination(request,lista,x):
 	return list_pages
 
 # IN DEVELOPMENT ----------------
-def get_top_champs_by_summoner(summoner,region):
+def get_top_champs_by_summoner(summoner,region,numberChamps):
 	baseriotapi.set_region(region)
 	baseriotapi.set_api_key(settings.RIOT_KEY)
 	champs = baseriotapi.get_ranked_stats(summoner.id,'SEASON2016')
 	objeto = json.loads(str(champs))
 	longitud = len(objeto["champions"])
 	dictionary = {}
+	wins = []
 	for i in range(longitud):
-	    listado = [str(objeto["champions"][i]["stats"]['totalSessionsPlayed']),str(objeto["champions"][i]["stats"]['totalAssists']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalMinionKills'])]
-	    dictionary[objeto["champions"][i]['id']] = listado
-	del dictionary[0]
-	return dictionary
+	    if objeto["champions"][i]['id'] != 0:
+	    	wins.append(objeto["champions"][i]["stats"]['totalSessionsPlayed'])
+	    	sumka = objeto["champions"][i]["stats"]['totalAssists'] + objeto["champions"][i]["stats"]['totalChampionKills']
+	    	listado = [str(objeto["champions"][i]["stats"]['totalSessionsPlayed']),str(objeto["champions"][i]["stats"]['totalAssists']),str(objeto["champions"][i]["stats"]['totalChampionKills']),str(objeto["champions"][i]["stats"]['totalDeathsPerSession']),str(objeto["champions"][i]["stats"]['totalMinionKills']),sumka]
+	    	champion = riotapi.get_champion_by_id(objeto["champions"][i]['id'])
+	    	dictionary[champion] = listado
+	bestof = heapq.nlargest(numberChamps,wins)
+	final = {}
+	for key,value in dictionary.items():
+		for item in bestof:
+			if str(item) == str(value[0]):
+				final[key] = value
+
+	return final

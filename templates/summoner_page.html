@@ -131,7 +131,7 @@
 																		<span>{{match.stats.minion_kills}} CS </span>
 																	</div>
 																</div>
-						<!-- BUILD ITEMS ----------->
+						<!-- BUILD ITEMS -->
 			        								<div class="tableCell">
 				        									<div>
 					        									<div class="itemBuild">
@@ -181,8 +181,8 @@
 				        										</div>
 			        										</div>
 			        								</div>
-														<!-- BUILD ITEMS END ----------->
-														<!-- WARD ITEM ----------->
+														<!- BUILD ITEMS END -->
+														<!- WARD ITEM -->
 			        								<div class="tableCell" style="width:32px;padding:0px;">
 			        										<div>
 		        											{% if match.stats.item6.id != null %}
@@ -192,7 +192,7 @@
 			        										{% endif %}
 		        										</div>
 	        										</div>
-														<!-- WARD ITEM END ----------->
+														
 
 							        			</div>
 						        			{% endif %}
@@ -200,7 +200,32 @@
 				        			{% endfor %}
 				        		</div>
 				        		<div class="col s4 m4">
-									<p class="flow-text">Content champ</p>
+											<!-- CHAMP SECTION -->
+											{% for key,value in champs.items %}
+											<div class="champBoxTable col s12">
+														<div class="champBoxCell">
+															<img class="responsive-img topImageChamp circle"  src="{% static 'img/champion/' %}{{key.image.link|cut:'.png'}}.jpg"/>
+														</div>
+														<div class="champBoxCell">
+																<span class="champBoxName">{{key.name}}</span>
+																<span class="champBoxCS">{{value.4|div:value.0|stringformat:"i"}} CS</span>
+													</div>
+													<div class="champBoxCell">
+														{% if value.5|div:value.3 > 4 %}
+															<span class="blue-text champBoxKDAPercent">{{ value.5|div:value.3|floatformat:"2" }}:1 KDA</span>
+														{% elif value.5|div:value.3 > 3 %}
+															<span class="green-text champBoxKDAPercent">{{ value.5|div:value.3|floatformat:"2" }}:1 KDA</span>
+														{% else %}
+															<span class="champBoxKDAPercent">{{ value.5|div:value.3|floatformat:"2" }}:1 KDA</span>
+														{% endif %}
+														<span class="champBoxKDA">{{value.2|div:value.0|floatformat:"1"}}/{{value.3|div:value.0|floatformat:"1"}}/{{value.1|div:value.0|floatformat:"1"}}</span>
+													</div>
+													<div class="champBoxCell">
+														<span class="champBoxTotalGames">{{value.0}} games </span>
+													</div>
+												</div>
+											{% endfor %}
+										<!-- END CHAMP SECTION -->
 				        		</div>
 				        	</div>
 				        	<div id="tab-2" class="tab-content">

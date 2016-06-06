@@ -150,6 +150,38 @@ margin-top:5px;
 .champImgDiv{
   width:80px;
 }
+.topImageChamp{
+  max-width: 45% !important;
+}
+.champBoxTable{
+  display:table;
+  border-spacing: 15px;
+  border-bottom: 1px solid rgba(51,51,51,0.12) ;
+  table-layout: fixed;
+}
+
+.champBoxCell{
+  display:table-cell;
+  vertical-align: middle;
+  text-align:center;
+}
+.champBoxName{
+  display:block;
+  font-weight: bold;
+  text-align: center;
+}
+.champBoxCS{
+  display:block;
+  font-size: 0.9em;
+  text-align: center;
+}
+.champBoxKDA{
+  letter-spacing: 1px;
+}
+.champBoxKDAPercent{
+  font-weight: bold;
+
+}
 @media (max-width: 1400px) {
   #champSpells{
       width:65px !important;
